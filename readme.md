@@ -1,5 +1,7 @@
 # Stencil Test Helpers
 
+This code is a port from the great [ember-test-helpers](https://github.com/emberjs/ember-test-helpers) to be used in Stencil projects.
+
 ## Getting Started
 
 ```bash
