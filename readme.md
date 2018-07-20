@@ -1,5 +1,8 @@
 # Stencil Test Helpers
 
+[![Build Status](https://travis-ci.com/Serabe/stencil-test-helpers.svg?branch=master)](https://travis-ci.com/Serabe/stencil-test-helpers)
+[![Coverage Status](https://coveralls.io/repos/github/Serabe/stencil-test-helpers/badge.svg)](https://coveralls.io/github/Serabe/stencil-test-helpers)
+
 This code is a port from the great [ember-test-helpers](https://github.com/emberjs/ember-test-helpers) to be used in Stencil projects.
 
 ## Getting Started
