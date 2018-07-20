@@ -96,27 +96,27 @@ export default function(
   element: Element,
   eventType: MouseEventType,
   options: MouseEventOptions
-): Promise<MouseEvent>;
+): MouseEvent;
 export default function(
   element: Element,
   eventType: KeyboardEventType,
   options: KeyboardEventOptions
-): Promise<KeyboardEvent>;
+): KeyboardEvent;
 export default function(
   element: Element,
   eventType: FileSelectionEventType,
   options: FileSelectionEventOptions
-): Promise<Event>;
+): Event;
 export default function(
   element: Element,
   eventType: EventType,
   options: EventOptions
-);
+): Event;
 export default function(
   element: Element,
   eventType: EventType,
   options: EventOptions = {}
-) {
+): Event {
   let event = buildEvent(element, eventType, options);
   try {
     element.dispatchEvent(event);
