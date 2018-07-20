@@ -93,27 +93,27 @@ type EventOptions =
   | KeyboardEventOptions
   | FileSelectionEventOptions;
 
-export default async function(
+export default function(
   element: Element,
   eventType: MouseEventType,
   options: MouseEventOptions
 ): Promise<MouseEvent>;
-export default async function(
+export default function(
   element: Element,
   eventType: KeyboardEventType,
   options: KeyboardEventOptions
 ): Promise<KeyboardEvent>;
-export default async function(
+export default function(
   element: Element,
   eventType: FileSelectionEventType,
   options: FileSelectionEventOptions
 ): Promise<Event>;
-export default async function(
+export default function(
   element: Element,
   eventType: EventType,
   options: EventOptions
 );
-export default async function(
+export default function(
   element: Element,
   eventType: EventType,
   options: EventOptions = {}
@@ -124,7 +124,6 @@ export default async function(
   } catch (e) {
     throw new Error(`could not dispatch ${eventType} event: ${e.message}`);
   }
-  await nextTickPromise();
   return event;
 }
 

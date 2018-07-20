@@ -3,11 +3,11 @@ import getElement from './get-element';
 import isFocusable from './is-focusable';
 import fireEvent from './fire-event';
 
-export async function uncheckedFocus(element: Element): Promise<void> {
+export function uncheckedFocus(element: Element): void {
   // makes `document.activeElement` be `element`. If the browser is focused, it also fires a focus event
   (element as HTMLElement).focus();
 
-  await fireEvent(element, 'focusin', {});
+  fireEvent(element, 'focusin', {});
 }
 
 /**
@@ -36,7 +36,7 @@ export default async function(target: Element | string): Promise<void> {
     throw new Error(`${target} is not focusable`);
   }
 
-  await uncheckedFocus(element);
+  uncheckedFocus(element);
 
   return nextTickPromise();
 }

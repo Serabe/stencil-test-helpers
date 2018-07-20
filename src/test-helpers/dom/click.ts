@@ -5,15 +5,15 @@ import fireEvent from './fire-event';
 import isFocusable from './is-focusable';
 import { uncheckedFocus } from './focus';
 
-async function uncheckedClick(element: Element): Promise<void> {
-  await fireEvent(element, 'mousedown', {});
+function uncheckedClick(element: Element): void {
+  fireEvent(element, 'mousedown', {});
 
   if (isFocusable(element)) {
-    await uncheckedFocus(element);
+    uncheckedFocus(element);
   }
 
-  await fireEvent(element, 'mouseup', {});
-  await fireEvent(element, 'click', {});
+  fireEvent(element, 'mouseup', {});
+  fireEvent(element, 'click', {});
 }
 
 export default async function(target: Element | string): Promise<void> {
@@ -29,7 +29,7 @@ export default async function(target: Element | string): Promise<void> {
     isFormControl(element) && element.disabled === true;
 
   if (!isDisabledFormControl) {
-    await uncheckedClick(element);
+    uncheckedClick(element);
   }
 
   return nextTickPromise();
