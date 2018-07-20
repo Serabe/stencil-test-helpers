@@ -1,4 +1,4 @@
-import { TestWindow as StencilTestWindow } from '@stencil/core/testing';
+import { TestWindow as StencilTestWindow } from '@stencil/core/dist/testing';
 
 let registeredTestWindow: TestWindow;
 let loadedElement: any | null;
@@ -33,14 +33,14 @@ export const removeTestWindow = () => {
   loadedElement = null;
 };
 
-export const getRootElement = (): any => {
+export const getRootElement = (): Element => {
   if (!loadedElement) {
     throw new Error(
       'there is no loaded element. Please, use TestWindow.prototype.load first'
     );
   }
 
-  return loadedElement;
+  return loadedElement as Element;
 };
 
 export const getTestWindow = (): TestWindow => {

@@ -4,8 +4,8 @@ import {
   getTestWindow,
   removeTestWindow,
 } from './window';
-import { TestWindow as StencilTestWindow } from '@stencil/core/testing';
-import { MyFakeApp } from '../components/my-fake-app/my-fake-app';
+import { TestWindow as StencilTestWindow } from '@stencil/core/dist/testing';
+import { InstrumentedElement } from '../components/instrumented-element/instrumented-element';
 
 describe('TestWindow', () => {
   afterEach(() => {
@@ -15,7 +15,7 @@ describe('TestWindow', () => {
   it('is a StencilTestWindow', async () => {
     let testWindow = new TestWindow();
     await testWindow.load({
-      components: [MyFakeApp],
+      components: [InstrumentedElement],
       html: '<div></div>',
     });
 
@@ -25,7 +25,7 @@ describe('TestWindow', () => {
   it('sets the new test window as the registered test window', async () => {
     let testWindow = new TestWindow();
     await testWindow.load({
-      components: [MyFakeApp],
+      components: [InstrumentedElement],
       html: '<div></div>',
     });
 
@@ -35,8 +35,8 @@ describe('TestWindow', () => {
   it('registers the loaded element', async () => {
     let testWindow = new TestWindow();
     let element = await testWindow.load({
-      components: [MyFakeApp],
-      html: '<my-fake-app></my-fake-app>',
+      components: [InstrumentedElement],
+      html: '<instrumented-element></instrumented-element>',
     });
 
     expect(element).toStrictEqual(getRootElement());
@@ -51,7 +51,7 @@ describe('getTestWindow', () => {
   it('returns the created test window', async () => {
     let testWindow = new TestWindow();
     await testWindow.load({
-      components: [MyFakeApp],
+      components: [InstrumentedElement],
       html: '<div></div>',
     });
 
@@ -71,7 +71,7 @@ describe('removeTestWindow', () => {
   it('removes currently registered test window', async () => {
     let testWindow = new TestWindow();
     await testWindow.load({
-      components: [MyFakeApp],
+      components: [InstrumentedElement],
       html: '<div></div>',
     });
 

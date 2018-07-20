@@ -29,30 +29,31 @@ declare global {
 declare global {
 
   namespace StencilComponents {
-    interface MyFakeApp {
-
+    interface InstrumentedElement {
+      'getEvents': () => string[];
+      'instrumentElement': (element: HTMLElement) => void;
     }
   }
 
-  interface HTMLMyFakeAppElement extends StencilComponents.MyFakeApp, HTMLStencilElement {}
+  interface HTMLInstrumentedElementElement extends StencilComponents.InstrumentedElement, HTMLStencilElement {}
 
-  var HTMLMyFakeAppElement: {
-    prototype: HTMLMyFakeAppElement;
-    new (): HTMLMyFakeAppElement;
+  var HTMLInstrumentedElementElement: {
+    prototype: HTMLInstrumentedElementElement;
+    new (): HTMLInstrumentedElementElement;
   };
   interface HTMLElementTagNameMap {
-    'my-fake-app': HTMLMyFakeAppElement;
+    'instrumented-element': HTMLInstrumentedElementElement;
   }
   interface ElementTagNameMap {
-    'my-fake-app': HTMLMyFakeAppElement;
+    'instrumented-element': HTMLInstrumentedElementElement;
   }
   namespace JSX {
     interface IntrinsicElements {
-      'my-fake-app': JSXElements.MyFakeAppAttributes;
+      'instrumented-element': JSXElements.InstrumentedElementAttributes;
     }
   }
   namespace JSXElements {
-    export interface MyFakeAppAttributes extends HTMLAttributes {
+    export interface InstrumentedElementAttributes extends HTMLAttributes {
 
     }
   }
