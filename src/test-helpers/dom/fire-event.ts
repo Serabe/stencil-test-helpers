@@ -1,5 +1,4 @@
 import { getTestWindow } from '../window';
-import { nextTickPromise } from '../utils';
 const DEFAULT_EVENT_OPTIONS = { bubbles: true, cancelable: true };
 const ALL_KEYBOARD_EVENT_TYPES = Object.freeze([
   'keydown',
