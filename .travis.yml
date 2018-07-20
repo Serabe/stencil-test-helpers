@@ -1,0 +1,14 @@
+language: node_js
+cache:
+  directories:
+    - node_modules
+notifications:
+  email: false
+node_js:
+  - "10"
+  - "8"
+  - "6"
+script:
+  - npm run test.ci
+after_success:
+  - npm run report-coverage
