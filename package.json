@@ -10,9 +10,11 @@
     "dist/"
   ],
   "scripts": {
+    "lint": "tslint -p tsconfig.json -c tslint.json",
     "build": "stencil build",
     "start": "stencil build --dev --watch --serve",
     "test": "jest",
+    "test.ci": "npm run test && npm run lint",
     "test.watch": "jest --watch"
   },
   "dependencies": {},
