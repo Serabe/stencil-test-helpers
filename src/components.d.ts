@@ -32,6 +32,7 @@ declare global {
     interface InstrumentedElement {
       'getEvents': () => string[];
       'instrumentElement': (element: HTMLElement) => void;
+      'resetEvents': () => void;
     }
   }
 
