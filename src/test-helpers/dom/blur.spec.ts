@@ -25,7 +25,7 @@ describe('blur', () => {
     element = await buildElement(
       '<input id="hola" /><div id="not-focusable" />'
     );
-    inputElement = element.querySelector('#hola') as HTMLInputElement;
+    inputElement = element.querySelector('#hola');
 
     await focus('#hola');
 
