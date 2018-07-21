@@ -1,7 +1,6 @@
-import { TestWindow, getTestWindow, removeTestWindow } from '../window';
+import { TestWindow, removeTestWindow, getTestWindow } from '../window';
 import { InstrumentedElement } from '../../components/instrumented-element/instrumented-element';
-import click from './click';
-import getElement from './get-element';
+import doubleClick from './double-click';
 
 async function buildElement(
   innerHtml: string
@@ -15,47 +14,56 @@ async function buildElement(
   return element as HTMLInstrumentedElementElement;
 }
 
-describe('click', () => {
+describe('doubleClick', () => {
   afterEach(() => {
     removeTestWindow();
   });
 
   describe('non-focusable element types', () => {
-    test('clicking a div via selector', async () => {
+    let clickSteps = [
+      'mousedown',
+      'mouseup',
+      'click',
+      'mousedown',
+      'mouseup',
+      'click',
+      'dblclick',
+    ];
+
+    test('double-clicking a div via selector', async () => {
       let element = await buildElement('<div id="hola"></div>');
 
-      await click('#hola');
+      await doubleClick('#hola');
 
-      expect(element.getEvents()).toEqual(['mousedown', 'mouseup', 'click']);
+      expect(element.getEvents()).toEqual(clickSteps);
     });
 
-    test('clicking a div via element', async () => {
+    test('double-clicking a div via element', async () => {
       let element = await buildElement('<div id="hola"></div>');
+      let div = element.querySelector('#hola');
 
-      let holaDiv = element.querySelector('#hola');
+      await doubleClick(div);
 
-      await click(holaDiv);
-
-      expect(element.getEvents()).toEqual(['mousedown', 'mouseup', 'click']);
+      expect(element.getEvents()).toEqual(clickSteps);
     });
 
     test('does not run sync', async () => {
       let element = await buildElement('<div id="hola"></div>');
 
-      let promise = click('#hola');
+      let promise = doubleClick('#hola');
 
       expect(element.getEvents()).toEqual([]);
 
       await promise;
 
-      expect(element.getEvents()).toEqual(['mousedown', 'mouseup', 'click']);
+      expect(element.getEvents()).toEqual(clickSteps);
     });
 
     test('rejects if selector is not found', async () => {
-      await buildElement('<div id="hola"></div>');
+      await buildElement('<div/>');
 
       try {
-        await click('#adios');
+        await doubleClick('#this-element-does-not-exist');
         expect(false).toBeTruthy();
       } catch (e) {
         expect(true).toBeTruthy();
@@ -64,12 +72,22 @@ describe('click', () => {
   });
 
   describe('focusable element types', () => {
-    let clickSteps = ['mousedown', 'focus', 'focusin', 'mouseup', 'click'];
+    let clickSteps = [
+      'mousedown',
+      'focus',
+      'focusin',
+      'mouseup',
+      'click',
+      'mousedown',
+      'mouseup',
+      'click',
+      'dblclick',
+    ];
 
-    test('clicking a input via selector', async () => {
-      let element = await buildElement('<input id="hola"></input>');
+    test('double-clicking a input via selector', async () => {
+      let element = await buildElement('<input id="hola" />');
 
-      await click('#hola');
+      await doubleClick('#hola');
 
       expect(element.getEvents()).toEqual(clickSteps);
       expect(getTestWindow().document.activeElement).toEqual(
@@ -77,24 +95,14 @@ describe('click', () => {
       );
     });
 
-    test('clicking a input via element', async () => {
-      let element = await buildElement('<input id="hola"></input>');
-      let input = getElement('#hola');
+    test('double-clicking a input via element', async () => {
+      let element = await buildElement('<input id="hola" />');
+      let input = element.querySelector('#hola');
 
-      await click(input);
+      await doubleClick(input);
 
       expect(element.getEvents()).toEqual(clickSteps);
       expect(getTestWindow().document.activeElement).toEqual(input);
-    });
-
-    test('clicking a disabled input does nothing', async () => {
-      let element = await buildElement('<input id="hola" disabled></input>');
-      let input = getElement('#hola');
-
-      await click(element);
-
-      expect(element.getEvents()).toEqual([]);
-      expect(getTestWindow().document.activeElement).not.toEqual(input);
     });
   });
 
@@ -107,9 +115,17 @@ describe('click', () => {
       let iframeElement = iframeDocument.createElement('div');
       element.instrumentElement(iframeElement);
 
-      await click(iframeElement);
+      await doubleClick(iframeElement);
 
-      expect(element.getEvents()).toEqual(['mousedown', 'mouseup', 'click']);
+      expect(element.getEvents()).toEqual([
+        'mousedown',
+        'mouseup',
+        'click',
+        'mousedown',
+        'mouseup',
+        'click',
+        'dblclick',
+      ]);
     });
   });
 });
