@@ -45,6 +45,35 @@ describe('my form', () => {
 });
 ```
 
+### doubleClick
+
+```ts
+import {
+  TestWindow,
+  doubleClick,
+  removeTestWindow,
+} from 'stencil-test-helpers';
+
+describe('my button', () => {
+  afterEach(() => {
+    removeTestWindow();
+  });
+
+  test('doubleClicking button', async () => {
+    let window = new TestWindow();
+    let element = await window.load({
+      components: [MyButton],
+      html: '<my-button>Hello, click me twice</my-button>',
+    });
+
+    let myButton = element.querySelector('my-button');
+
+    await click(myButton);
+    await click('my-button');
+  });
+});
+```
+
 ### focus
 
 ```ts
