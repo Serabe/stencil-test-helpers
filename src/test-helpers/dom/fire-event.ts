@@ -45,8 +45,10 @@ type EventType =
   | KeyboardEventType
   | MouseEventType
   | FileSelectionEventType
+  | 'blur'
   | 'focus'
-  | 'focusin';
+  | 'focusin'
+  | 'focusout';
 
 type MouseEventOptions = {
   bubbles?: boolean;

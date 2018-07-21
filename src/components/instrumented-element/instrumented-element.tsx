@@ -186,6 +186,11 @@ export class InstrumentedElement {
     });
   }
 
+  @Method()
+  resetEvents() {
+    this._events = [];
+  }
+
   componentDidLoad() {
     let wrapper = this.rootElement.children[0];
     let child = wrapper.children[0] || this.rootElement;

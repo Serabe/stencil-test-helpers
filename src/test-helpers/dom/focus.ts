@@ -33,7 +33,7 @@ export default async function(target: Element | string): Promise<void> {
   }
 
   if (!isFocusable(element)) {
-    throw new Error(`${target} is not focusable`);
+    throw new Error(`${target} is not focusable.`);
   }
 
   uncheckedFocus(element);
