@@ -27,18 +27,20 @@ describe('focus', () => {
       await focus('#hola');
       expect(false).toBeTruthy();
     } catch (e) {
-      expect(true).toBeTruthy();
+      expect(e.message).toMatch('#hola is not focusable.');
     }
   });
 
   test('focusing a div via element', async () => {
-    await buildElement('<div id="hola"></div>');
+    let element = await buildElement('<div id="hola"></div>');
+    let div = element.querySelector('#hola');
 
     try {
-      await focus('#hola');
+      await focus(div);
+
       expect(false).toBeTruthy();
     } catch (e) {
-      expect(true).toBeTruthy();
+      expect(e.message).toMatch(/is not focusable\./);
     }
   });
 
@@ -61,7 +63,9 @@ describe('focus', () => {
       await focus('#this-selector-does-not-exist');
       expect(false).toBeTruthy();
     } catch (e) {
-      expect(true).toBeTruthy();
+      expect(e.message).toMatch(
+        "Element not found when calling `focus('#this-selector-does-not-exist')`."
+      );
     }
   });
 

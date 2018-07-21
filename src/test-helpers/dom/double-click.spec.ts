@@ -66,7 +66,9 @@ describe('doubleClick', () => {
         await doubleClick('#this-element-does-not-exist');
         expect(false).toBeTruthy();
       } catch (e) {
-        expect(true).toBeTruthy();
+        expect(e.message).toMatch(
+          "Element not found when calling `doubleClick('#this-element-does-not-exist')`."
+        );
       }
     });
   });

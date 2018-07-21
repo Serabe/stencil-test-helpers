@@ -58,7 +58,9 @@ describe('click', () => {
         await click('#adios');
         expect(false).toBeTruthy();
       } catch (e) {
-        expect(true).toBeTruthy();
+        expect(e.message).toMatch(
+          "Element not found when calling `click('#adios')`."
+        );
       }
     });
   });

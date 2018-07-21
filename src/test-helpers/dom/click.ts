@@ -22,7 +22,7 @@ export default async function(target: Element | string): Promise<void> {
   let element = getElement(target);
 
   if (!element) {
-    throw new Error(`Element not found when calling \`click('${target}')\``);
+    throw new Error(`Element not found when calling \`click('${target}')\`.`);
   }
 
   let isDisabledFormControl =
