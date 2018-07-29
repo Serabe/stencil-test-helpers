@@ -1,8 +1,8 @@
 import { nextTickPromise } from '../utils';
-import getElement from './get-element';
 import fireEvent from './fire-event';
-import isFocusable from './is-focusable';
 import { uncheckedFocus } from './focus';
+import getElement from './get-element';
+import isFocusable from './is-focusable';
 
 function uncheckedDoubleClick(element: Element) {
   fireEvent(element, 'mousedown', {});

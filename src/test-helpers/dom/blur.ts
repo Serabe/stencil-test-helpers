@@ -1,8 +1,8 @@
 import { nextTickPromise } from '../utils';
-import isFocusable from './is-focusable';
-import getElement from './get-element';
 import { getTestWindow } from '../window';
 import fireEvent from './fire-event';
+import getElement from './get-element';
+import isFocusable from './is-focusable';
 
 function uncheckedBlur(element: Element) {
   (element as HTMLElement).blur();

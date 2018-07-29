@@ -1,19 +1,7 @@
-import { TestWindow, getTestWindow, removeTestWindow } from '../window';
-import { InstrumentedElement } from '../../components/instrumented-element/instrumented-element';
+import { buildElement } from '../utils.spec';
+import { getTestWindow, removeTestWindow } from '../window';
 import click from './click';
 import getElement from './get-element';
-
-async function buildElement(
-  innerHtml: string
-): Promise<HTMLInstrumentedElementElement> {
-  let window = new TestWindow();
-  let element = await window.load({
-    components: [InstrumentedElement],
-    html: `<instrumented-element>${innerHtml}</instrumented-element>`,
-  });
-
-  return element as HTMLInstrumentedElementElement;
-}
 
 describe('click', () => {
   afterEach(() => {

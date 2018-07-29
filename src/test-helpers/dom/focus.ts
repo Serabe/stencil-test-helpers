@@ -1,7 +1,7 @@
 import { nextTickPromise } from '../utils';
+import fireEvent from './fire-event';
 import getElement from './get-element';
 import isFocusable from './is-focusable';
-import fireEvent from './fire-event';
 
 export function uncheckedFocus(element: Element): void {
   // makes `document.activeElement` be `element`. If the browser is focused, it also fires a focus event
