@@ -49,7 +49,7 @@ type FileSelectionEventOptions = {
   files?: string[];
 };
 
-type EventOptions =
+export type EventOptions =
   | MouseEventOptions
   | KeyboardEventOptions
   | FileSelectionEventOptions;

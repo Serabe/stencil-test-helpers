@@ -1,7 +1,6 @@
-import { EventOptions } from '../../../node_modules/@stencil/core/dist/declarations';
 import { nextTickPromise } from '../utils';
 import { uncheckedClick } from './click';
-import fireEvent from './fire-event';
+import fireEvent, { EventOptions } from './fire-event';
 import getElement from './get-element';
 
 /**
