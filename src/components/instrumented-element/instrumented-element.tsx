@@ -1,7 +1,8 @@
 import { Component, Element, Method } from '@stencil/core';
+import { EventOptions } from '../../test-helpers/dom/fire-event';
 
 // from https://mdn.mozilla.org/en-US/docs/Web/Events
-export const KNOWN_EVENTS = Object.freeze([
+export const KNOWN_EVENTS = [
   'abort',
   'afterprint',
   'animationend',
@@ -163,24 +164,24 @@ export const KNOWN_EVENTS = Object.freeze([
   'volumechange',
   'waiting',
   'wheel',
-]);
+] as EventOptions[];
 
 @Component({
   tag: 'instrumented-element',
 })
 export class InstrumentedElement {
   @Element() rootElement: HTMLElement;
-  protected _events: string[] = [];
+  protected _events: EventOptions[] = [];
 
   @Method()
-  getEvents(): string[] {
+  getEvents(): EventOptions[] {
     return this._events;
   }
 
   @Method()
   instrumentElement(element: HTMLElement) {
     KNOWN_EVENTS.forEach(type => {
-      element.addEventListener(type, () => {
+      element.addEventListener(type as string, () => {
         this._events.push(type);
       });
     });
@@ -189,6 +190,17 @@ export class InstrumentedElement {
   @Method()
   resetEvents() {
     this._events = [];
+  }
+
+  @Method()
+  listenTo(
+    event: EventOptions,
+    element = this.rootElement,
+    valueToInclude: (EventOptions) => EventOptions = e => e
+  ) {
+    element.addEventListener(event as string, () => {
+      this._events.push(valueToInclude(event));
+    });
   }
 
   componentDidLoad() {

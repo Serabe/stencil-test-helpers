@@ -193,4 +193,5 @@ export type EventType =
   | 'visibilitychange'
   | 'volumechange'
   | 'waiting'
-  | 'wheel';
+  | 'wheel'
+  | string;

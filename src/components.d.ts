@@ -25,13 +25,17 @@ declare global {
   interface HTMLAttributes {}
 }
 
+import {
+  EventOptions,
+} from './test-helpers/dom/fire-event';
 
 declare global {
 
   namespace StencilComponents {
     interface InstrumentedElement {
-      'getEvents': () => string[];
+      'getEvents': () => EventOptions[];
       'instrumentElement': (element: HTMLElement) => void;
+      'listenTo': (event: EventOptions, element?: HTMLElement, valueToInclude?: (EventOptions: any) => EventOptions) => void;
       'resetEvents': () => void;
     }
   }
