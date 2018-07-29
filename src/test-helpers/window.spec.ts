@@ -1,11 +1,11 @@
+import { TestWindow as StencilTestWindow } from '@stencil/core/dist/testing';
+import { InstrumentedElement } from '../components/instrumented-element/instrumented-element';
 import {
-  TestWindow,
   getRootElement,
   getTestWindow,
   removeTestWindow,
+  TestWindow,
 } from './window';
-import { TestWindow as StencilTestWindow } from '@stencil/core/dist/testing';
-import { InstrumentedElement } from '../components/instrumented-element/instrumented-element';
 
 describe('TestWindow', () => {
   afterEach(() => {

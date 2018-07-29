@@ -1,20 +1,9 @@
-import { TestWindow, removeTestWindow, getTestWindow } from '../window';
-import { InstrumentedElement } from '../../components/instrumented-element/instrumented-element';
+import { buildElement } from '../utils.spec';
+import { getTestWindow, removeTestWindow } from '../window';
 import focus from './focus';
 
 const focusSteps = ['focus', 'focusin'];
 
-async function buildElement(
-  innerHtml: string
-): Promise<HTMLInstrumentedElementElement> {
-  let window = new TestWindow();
-  let element = await window.load({
-    components: [InstrumentedElement],
-    html: `<instrumented-element>${innerHtml}</instrumented-element>`,
-  });
-
-  return element as HTMLInstrumentedElementElement;
-}
 describe('focus', () => {
   afterEach(() => {
     removeTestWindow();

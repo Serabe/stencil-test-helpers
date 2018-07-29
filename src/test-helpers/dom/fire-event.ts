@@ -1,54 +1,14 @@
 import { getTestWindow } from '../window';
-const DEFAULT_EVENT_OPTIONS = { bubbles: true, cancelable: true };
-const ALL_KEYBOARD_EVENT_TYPES = Object.freeze([
-  'keydown',
-  'keypress',
-  'keyup',
-]);
-type KeyboardEventType = 'keydown' | 'keypress' | 'keyup';
-function isKeyboardEventType(s: string): s is KeyboardEventType {
-  return ALL_KEYBOARD_EVENT_TYPES.indexOf(s) > -1;
-}
-
-const ALL_MOUSE_EVENT_TYPES = [
-  'click',
-  'mousedown',
-  'mouseup',
-  'dblclick',
-  'mouseenter',
-  'mouseleave',
-  'mousemove',
-  'mouseout',
-  'mouseover',
-];
-type MouseEventType =
-  | 'click'
-  | 'mousedown'
-  | 'mouseup'
-  | 'dblclick'
-  | 'mouseenter'
-  | 'mouseleave'
-  | 'mousemove'
-  | 'mouseout'
-  | 'mouseover';
-function isMouseEventType(s: string): s is MouseEventType {
-  return ALL_MOUSE_EVENT_TYPES.indexOf(s) > -1;
-}
-
-const ALL_FILE_SELECTION_EVENT_TYPES = ['change'];
-type FileSelectionEventType = 'change';
-function isFileSelectionEventType(s: string): s is FileSelectionEventType {
-  return ALL_FILE_SELECTION_EVENT_TYPES.indexOf(s) > -1;
-}
-
-type EventType =
-  | KeyboardEventType
-  | MouseEventType
-  | FileSelectionEventType
-  | 'blur'
-  | 'focus'
-  | 'focusin'
-  | 'focusout';
+import {
+  DEFAULT_EVENT_OPTIONS,
+  EventType,
+  FileSelectionEventType,
+  isFileSelectionEventType,
+  isKeyboardEventType,
+  isMouseEventType,
+  KeyboardEventType,
+  MouseEventType,
+} from './event-types';
 
 type MouseEventOptions = {
   bubbles?: boolean;

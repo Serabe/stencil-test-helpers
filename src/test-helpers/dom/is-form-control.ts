@@ -10,7 +10,11 @@ export default function isFormControl(
   return false;
 }
 
-type FormControl = Element & { type: string; disabled: boolean };
+export type FormControl = Element & {
+  type: string;
+  disabled: boolean;
+  value: string;
+};
 function isTagFormControl(element: Element): element is FormControl {
   return FORM_CONTROL_TAGS.indexOf(element.tagName) > -1;
 }

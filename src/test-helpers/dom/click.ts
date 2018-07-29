@@ -1,9 +1,9 @@
 import { nextTickPromise } from '../utils';
-import getElement from './get-element';
-import isFormControl from './is-form-control';
 import fireEvent from './fire-event';
-import isFocusable from './is-focusable';
 import { uncheckedFocus } from './focus';
+import getElement from './get-element';
+import isFocusable from './is-focusable';
+import isFormControl from './is-form-control';
 
 function uncheckedClick(element: Element): void {
   fireEvent(element, 'mousedown', {});
