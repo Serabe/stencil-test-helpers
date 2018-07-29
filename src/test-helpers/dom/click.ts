@@ -5,7 +5,7 @@ import getElement from './get-element';
 import isFocusable from './is-focusable';
 import isFormControl from './is-form-control';
 
-function uncheckedClick(element: Element): void {
+export function uncheckedClick(element: Element): void {
   fireEvent(element, 'mousedown', {});
 
   if (isFocusable(element)) {
