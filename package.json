@@ -12,6 +12,7 @@
   "scripts": {
     "lint": "tslint -p tsconfig.json -c tslint.json",
     "build": "stencil build",
+    "prepare": "npm run build",
     "report-coverage": "cat ./coverage/lcov.info | coveralls",
     "start": "stencil build --dev --watch --serve",
     "test": "jest",
@@ -31,14 +32,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ionic-team/stencil-component-starter.git"
+    "url": "git+https://github.com/Serabe/stencil-test-helpers.git"
   },
   "author": "Sergio Arbeo",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/ionic-team/stencil"
+    "url": "https://github.com/Serabe/stencil-test-helpers"
   },
-  "homepage": "https://github.com/ionic-team/stencil",
+  "homepage": "https://github.com/Serabe/stencil-test-helpers",
   "jest": {
     "transform": {
       "^.+\\.(ts|tsx)$": "<rootDir>/jest.preprocessor.js"
