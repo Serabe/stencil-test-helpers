@@ -195,7 +195,7 @@ export class InstrumentedElement {
   @Method()
   listenTo(
     event: EventType,
-    element: Element = this.rootElement,
+    element = this.rootElement,
     valueToInclude: (EventType, Event) => EventType = e => e
   ): Function {
     let handler = e => {
