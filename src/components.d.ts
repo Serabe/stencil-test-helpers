@@ -26,17 +26,18 @@ declare global {
 }
 
 import {
-  EventOptions,
-} from './test-helpers/dom/fire-event';
+  EventType,
+} from './test-helpers/dom/event-types';
 
 declare global {
 
   namespace StencilComponents {
     interface InstrumentedElement {
-      'getEvents': () => EventOptions[];
+      'getEvents': () => string[];
       'instrumentElement': (element: HTMLElement) => void;
-      'listenTo': (event: EventOptions, element?: HTMLElement, valueToInclude?: (EventOptions: any) => EventOptions) => void;
+      'listenTo': (event: string, element?: HTMLElement, valueToInclude?: (EventType: any, Event: any) => string) => Function;
       'resetEvents': () => void;
+      'stopListeningTo': (event: string, element: HTMLElement, handler: any) => void;
     }
   }
 

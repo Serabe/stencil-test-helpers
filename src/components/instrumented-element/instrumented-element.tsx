@@ -1,5 +1,5 @@
 import { Component, Element, Method } from '@stencil/core';
-import { EventOptions } from '../../test-helpers/dom/fire-event';
+import { EventType } from '../../test-helpers/dom/event-types';
 
 // from https://mdn.mozilla.org/en-US/docs/Web/Events
 export const KNOWN_EVENTS = [
@@ -164,17 +164,17 @@ export const KNOWN_EVENTS = [
   'volumechange',
   'waiting',
   'wheel',
-] as EventOptions[];
+] as EventType[];
 
 @Component({
   tag: 'instrumented-element',
 })
 export class InstrumentedElement {
   @Element() rootElement: HTMLElement;
-  protected _events: EventOptions[] = [];
+  protected _events: EventType[] = [];
 
   @Method()
-  getEvents(): EventOptions[] {
+  getEvents(): EventType[] {
     return this._events;
   }
 
@@ -194,13 +194,20 @@ export class InstrumentedElement {
 
   @Method()
   listenTo(
-    event: EventOptions,
-    element = this.rootElement,
-    valueToInclude: (EventOptions) => EventOptions = e => e
-  ) {
-    element.addEventListener(event as string, () => {
-      this._events.push(valueToInclude(event));
-    });
+    event: EventType,
+    element: Element = this.rootElement,
+    valueToInclude: (EventType, Event) => EventType = e => e
+  ): Function {
+    let handler = e => {
+      this._events.push(valueToInclude(event, e));
+    };
+    element.addEventListener(event as string, handler);
+    return handler;
+  }
+
+  @Method()
+  stopListeningTo(event: EventType, element = this.rootElement, handler) {
+    element.removeEventListener(event as string, handler);
   }
 
   componentDidLoad() {
