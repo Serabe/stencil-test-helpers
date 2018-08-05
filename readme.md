@@ -8,94 +8,37 @@ This code is a port from the great [ember-test-helpers](https://github.com/ember
 ## Getting Started
 
 ```bash
-npm install
-npm start
+npm install stencil-test-helpers
 ```
 
-## Naming Components
+So helpers know how to do their thing, the `TestWindow` class provided by this package needs to be used. It behaves as the normal `TestWindow`, but with a couple of extra magic bits that let the helpers use their magic.
 
-When creating new component tags, we recommend _not_ using `stencil` in the component name (ex: `<stencil-datepicker>`). This is because the generated component has little to nothing to do with Stencil; it's just a web component!
+You need to add a `removeTestWindow` call in the `aferEach` hook.
 
-Instead, use a prefix that fits your company or any name for a group of related components. For example, all of the Ionic generated web components use the prefix `ion`.
+The basic scaffold is:
+
+```ts
+import { TestWindow, removeTestWindow } from 'stencil-test-helpers';
+
+describe('something', () => {
+  afterEach(() => {
+    removeTestWindow();
+  });
+});
+```
 
 ## Helpers
 
-### click
+All the helpers accept a target both as a string (CSS selector) or an Element. All helpers will wait until the next tick _before_ and _after_ doing its work.
 
-```ts
-import { TestWindow, click, removeTestWindow } from 'stencil-test-helpers';
+The available helpers are:
 
-describe('my form', () => {
-  afterEach(() => {
-    removeTestWindow();
-  });
-
-  test('submitting form', async () => {
-    let window = new TestWindow();
-    let element = await window.load({
-      components: [MySelect],
-      html: '<form><my-select></my-select><input type="submit" /></form>',
-    });
-
-    let mySelect = element.querySelector('my-select');
-
-    await click(mySelect);
-    await click('[type="submit"]');
-  });
-});
-```
-
-### doubleClick
-
-```ts
-import {
-  TestWindow,
-  doubleClick,
-  removeTestWindow,
-} from 'stencil-test-helpers';
-
-describe('my button', () => {
-  afterEach(() => {
-    removeTestWindow();
-  });
-
-  test('doubleClicking button', async () => {
-    let window = new TestWindow();
-    let element = await window.load({
-      components: [MyButton],
-      html: '<my-button>Hello, click me twice</my-button>',
-    });
-
-    let myButton = element.querySelector('my-button');
-
-    await click(myButton);
-    await click('my-button');
-  });
-});
-```
-
-### focus
-
-```ts
-import { TestWindow, focus, removeTestWindow } from 'stencil-test-helpers';
-
-describe('my form', () => {
-  afterEach(() => {
-    removeTestWindow();
-  });
-
-  test('focusing an input', async () => {
-    let window = new TestWindow();
-    let element = await window.load({
-      components: [MySelect],
-      html:
-        '<form><input></input><my-select></my-select><input type="submit" /></form>',
-    });
-
-    let mySelect = element.querySelector('my-select');
-
-    await click(mySelect);
-    await click('input');
-  });
-});
-```
+- `blur(target)`
+- `click(target)`
+- `doubleClick(target)`
+- `fillIn(target, value: string)`
+- `focus(target)`
+- `getElement(target): Element | null`
+- `tap(target, options)`
+- `triggerEvent(target, event, options)`
+- `triggerKeyEvent(target, keyEventType, keyOrKeyCode, modifiers)`

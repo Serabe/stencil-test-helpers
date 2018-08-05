@@ -168,7 +168,7 @@ export default async function triggerKeyEvent(
   eventType: KeyboardEventType,
   key: number | string,
   modifiers = DEFAULT_MODIFIERS
-) {
+): Promise<void> {
   await nextTickPromise();
 
   let element = getElement(target);
