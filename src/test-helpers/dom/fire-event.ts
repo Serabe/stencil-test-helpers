@@ -159,74 +159,14 @@ function buildBasicEvent(
 }
 
 function buildKeyboardEvent(
-  element: Element,
+  _: Element,
   eventType: KeyboardEventType,
   options: KeyboardEventOptions
-): KeyboardEvent {
+): Event {
   let eventOpts = { ...DEFAULT_EVENT_OPTIONS, ...options };
-  let event, eventMethodName;
+  let window = getTestWindow();
 
-  try {
-    event = new KeyboardEvent(eventType, eventOpts);
-
-    // Property definitions are required for B/C for keyboard event usage
-    // If this properties are not defined, when listening for key events
-    // keyCode/which will be 0. Also, keyCode and which now are string
-    // and if app compare it with === with integer key definitions,
-    // there will be a fail.
-    //
-    // https://w3c.github.io/uievents/#interface-keyboardevent
-    // https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent
-    Object.defineProperty(event, 'keyCode', {
-      get() {
-        return parseInt(eventOpts.keyCode);
-      },
-    });
-
-    Object.defineProperty(event, 'which', {
-      get() {
-        return parseInt(eventOpts.which);
-      },
-    });
-
-    return event;
-  } catch (e) {
-    // left intentionally blank
-  }
-
-  try {
-    event = document.createEvent('KeyboardEvents');
-    eventMethodName = 'initKeyboardEvent';
-  } catch (e) {
-    // left intentionally blank
-  }
-
-  if (!event) {
-    try {
-      event = document.createEvent('KeyEvents');
-      eventMethodName = 'initKeyEvent';
-    } catch (e) {
-      // left intentionally blank
-    }
-  }
-
-  if (event) {
-    event[eventMethodName](
-      eventType,
-      eventOpts.bubbles,
-      eventOpts.cancelable,
-      window,
-      eventOpts.ctrlKey,
-      eventOpts.altKey,
-      eventOpts.shiftKey,
-      eventOpts.metaKey,
-      eventOpts.keyCode,
-      eventOpts.charCode
-    );
-  } else {
-    event = buildBasicEvent(element, eventType, options);
-  }
-
+  let event = new window.Event(eventType, eventOpts);
   return event;
 }
 
