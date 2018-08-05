@@ -159,7 +159,7 @@ function buildBasicEvent(
 }
 
 function buildKeyboardEvent(
-  element: Element,
+  _: Element,
   eventType: KeyboardEventType,
   options: KeyboardEventOptions
 ): Event {

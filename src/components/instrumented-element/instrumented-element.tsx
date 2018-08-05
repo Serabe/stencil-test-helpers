@@ -2,7 +2,7 @@ import { Component, Element, Method } from '@stencil/core';
 import { EventType } from '../../test-helpers/dom/event-types';
 
 // from https://mdn.mozilla.org/en-US/docs/Web/Events
-export const KNOWN_EVENTS = [
+export const KNOWN_EVENTS: EventType[] = [
   'abort',
   'afterprint',
   'animationend',
@@ -164,7 +164,7 @@ export const KNOWN_EVENTS = [
   'volumechange',
   'waiting',
   'wheel',
-] as EventType[];
+];
 
 @Component({
   tag: 'instrumented-element',
@@ -181,7 +181,7 @@ export class InstrumentedElement {
   @Method()
   instrumentElement(element: HTMLElement) {
     KNOWN_EVENTS.forEach(type => {
-      element.addEventListener(type as string, () => {
+      element.addEventListener(type, () => {
         this._events.push(type);
       });
     });
@@ -201,13 +201,13 @@ export class InstrumentedElement {
     let handler = e => {
       this._events.push(valueToInclude(event, e));
     };
-    element.addEventListener(event as string, handler);
+    element.addEventListener(event, handler);
     return handler;
   }
 
   @Method()
   stopListeningTo(event: EventType, element = this.rootElement, handler) {
-    element.removeEventListener(event as string, handler);
+    element.removeEventListener(event, handler);
   }
 
   componentDidLoad() {
